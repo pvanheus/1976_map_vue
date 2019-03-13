@@ -4,4 +4,9 @@
   publish = "dist"
   functions = "functions"
 
+[[redirects]]
+  from = "https://heuristic-blackwell-d6e0a7.netlify.com"
+  to = "https://1976.webbedfeet.co.za"
+  status = 200
+  force = true
 
