@@ -60,6 +60,7 @@
             axios.get(site_data_url).then(response => {
                 if ('TF_KEY' in response.data) {
                     this.url = tile_base + response.data.TF_KEY;
+                    this.info = response.data.TF_KEY;
                 } else {
                     this.info = response;
                 }
