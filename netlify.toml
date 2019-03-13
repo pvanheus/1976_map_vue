@@ -1,5 +1,5 @@
 [build]
-  base    = "1976_map_vue"
+  base    = "."
   command = "npm run-script build"
   publish = "dist"
   functions = "functions"
