@@ -37,7 +37,7 @@ export default {
       // center: L.latLng(-28.8097176, 24.6074293),
       // eslint-disable-next-line
       center: L.latLng(-33.8881, 18.6726),
-      url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      url: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors & <a href="http://www.thunderforest.com/">Thunderforest</a>'
     }
