@@ -1,30 +1,28 @@
 <template>
-    <!--<div class="container">-->
-        <div class="row">
-            <div class="col s12">
-                <l-map
-                        ref="map"
-                        id="map"
-                        :zoom="zoom"
-                        :options=extraOptions
-                        :center="center"
-                >
-                    <l-tile-layer
-                            v-if="url"
-                            :url="url"
-                            :attribution="attribution"
+    <div class="row">
+        <div class="col s12">
+            <l-map
+                    ref="map"
+                    id="map"
+                    :zoom="zoom"
+                    :options=extraOptions
+                    :center="center"
+            >
+                <l-tile-layer
+                        v-if="url"
+                        :url="url"
+                        :attribution="attribution"
+                />
+                <template v-if="deaths">
+                    <DeathMarker
+                            :key="death.person"
+                            v-for="death in deaths"
+                            :death="death"
                     />
-                    <template v-if="deaths">
-                        <DeathMarker
-                                :key="death.person"
-                                v-for="death in deaths"
-                                :death="death"
-                        />
-                    </template>
-                </l-map>
-            </div>
+                </template>
+            </l-map>
         </div>
-    <!--</div>-->
+    </div>
 </template>
 <script>
     import { LMap, LTileLayer, L } from 'vue2-leaflet'
@@ -50,21 +48,16 @@
             }
         },
         components: {
-            // BrowserPrint,
             DeathMarker,
             LMap,
             LTileLayer
         },
         mounted() {
             let tile_base = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?';
-            if (process.env.NODE_ENV === "development") {
-                this.url = tile_base + process.env.TF_KEY;
-            } else {
-                let site_data_url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
-                axios.get(site_data_url).then(response => {
-                    this.url = tile_base + response.data.TF_KEY;
-                });
-            }
+            let site_data_url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
+            axios.get(site_data_url).then(response => {
+                this.url = tile_base + response.data.TF_KEY;
+            });
             let data_url = 'https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json';
             axios.get(data_url).then(response => {
                 this.deaths = response.data;
