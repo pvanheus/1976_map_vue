@@ -11,7 +11,7 @@
 <script>
 import Header from "./components/Header";
 import Map from "./components/Map";
-import {AxiosInstance as axios} from "axios";
+import axios from "axios";
 
 export default {
   name: 'MainPage',
