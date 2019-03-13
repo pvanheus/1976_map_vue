@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted: function () {
-    let url = 'http://1976.webbedfeet.co.za/.netlify/functions/site_data';
+    let url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
     axios.get(url).then(response => {
       this.site_data = response.data
     });
