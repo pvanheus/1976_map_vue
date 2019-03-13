@@ -3,7 +3,6 @@
     <div class="col s8 offset-s2">
       <Header />
       <Map />
-      <pre v-if="site_data">{{site_data}}</pre>
     </div>
   </div>
 </template>
@@ -19,17 +18,6 @@ export default {
     Header,
     Map
   },
-  data: () => {
-    return {
-      site_data: null
-    }
-  },
-  mounted: function () {
-    let url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
-    axios.get(url).then(response => {
-      this.site_data = response.data
-    });
-  }
 };
 </script>
 
