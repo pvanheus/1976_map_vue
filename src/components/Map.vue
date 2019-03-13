@@ -21,6 +21,7 @@
                     />
                 </template>
             </l-map>
+            <pre v-if="info">{{info}}</pre>
         </div>
     </div>
 </template>
@@ -35,6 +36,7 @@
         name: 'Map',
         data() {
             return {
+                info: null,
                 deaths: null,
                 zoom: 10,
                 extraOptions: { zoomControl: false },
@@ -56,7 +58,11 @@
             let tile_base = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?';
             let site_data_url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
             axios.get(site_data_url).then(response => {
-                this.url = tile_base + response.data.TF_KEY;
+                if ('TF_KEY' in response.data) {
+                    this.url = tile_base + response.data.TF_KEY;
+                } else {
+                    this.info = response;
+                }
             });
             let data_url = 'https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json';
             axios.get(data_url).then(response => {
