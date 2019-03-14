@@ -18,7 +18,8 @@
           </p>
           <p>That map was the start of my engagement with Lynn Abrahams of Iziko Museum. With her
           help an updated list of the casualties in the Western Cape was produced, which is the basis
-            of the map below.</p>
+            of the map below. The community at <a href="https://codebridge.org.za/">Codebridge</a> community
+          evenings also contributed invaluable technical guidance and encouragement.</p>
         </div>
       </div>
     </div>
