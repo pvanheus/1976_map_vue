@@ -1,26 +1,34 @@
 <template>
-    <div class="row">
-        <div class="col s12">
-            <l-map
-                    ref="map"
-                    id="map"
-                    :zoom="zoom"
-                    :options=extraOptions
-                    :center="center"
-            >
-                <l-tile-layer
-                        v-if="url"
-                        :url="url"
-                        :attribution="attribution"
-                />
-                <template v-if="deaths">
-                    <DeathMarker
-                            :key="death.person"
-                            v-for="death in deaths"
-                            :death="death"
-                    />
-                </template>
-            </l-map>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="map">
+                    <l-map
+                            ref="map"
+                            id="map"
+                            style="height: 400px; width: 100%"
+                            :zoom="zoom"
+                            :options=extraOptions
+                            :center="center"
+                    >
+                        <l-tile-layer
+                                v-if="url"
+                                :url="url"
+                                :attribution="attribution"
+                        />
+                        <template v-if="deaths">
+                            <DeathMarker
+                                    :key="death.person"
+                                    v-for="death in deaths"
+                                    :death="death"
+                                    :visible="isVisible(death)"
+                            />
+                        </template>
+                    </l-map>
+                    <p></p> <!-- this is a hack - TODO do better margin around map -->
+                    <!--<p>start: {{ startTimestamp }} end: {{ endTimestamp }}</p>-->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -33,6 +41,10 @@
 
     export default {
         name: 'Map',
+        props: {
+            startTimestamp: Number,
+            endTimestamp: Number
+        },
         data() {
             return {
                 deaths: null,
@@ -52,12 +64,24 @@
             LMap,
             LTileLayer
         },
+        // computed: {
+        //     visibleDeaths: function () {
+        //         if (this.deaths) {
+        //             return this.deaths.filter(death => {
+        //                 return death.timestamp >= this.startTimestamp && death.timestamp <= this.endTimestamp;
+        //             });
+        //         } else {
+        //             return [];
+        //         }
+        //     }
+        // },
         mounted() {
-            let tile_base = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=';
+            let tile_base = 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png';
+            this.url = tile_base;
             let site_data_url = 'https://1976.webbedfeet.co.za/.netlify/functions/site_data';
             axios.get(site_data_url).then(response => {
                 if ('TF_KEY' in response.data) {
-                    this.url = tile_base + response.data.TF_KEY;
+                    this.url = tile_base + '?apikey=' + response.data.TF_KEY;
                 }
             });
             let data_url = 'https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json';
@@ -81,6 +105,11 @@
                     }
                 });
             });
+        },
+        methods: {
+            isVisible: function (death) {
+                return death.timestamp >= this.startTimestamp && death.timestamp <= this.endTimestamp;
+            }
         }
     }
 </script>

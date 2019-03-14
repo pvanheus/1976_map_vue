@@ -14,7 +14,7 @@
                         and January 1976. An account of that violence can be found
                         <a href="https://github.com/pvanheus/1976/blob/master/RoleOfRiotPoliceInBurningsAndKillingsNyangaCapeTownChristmas1976.pdf">here</a>.
                     </p>
-                    <div><span class="icon_credit">Favicon features icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
+                    <div class="icon_credit"><span class="icon_credit">Favicon features icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
                         from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
                         <a href="http://creativecommons.org/licenses/by/3.0" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
                     </span></div>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-</template>
+ </template>
 
 <script>
     export default {

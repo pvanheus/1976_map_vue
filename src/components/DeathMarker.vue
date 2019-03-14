@@ -1,9 +1,10 @@
 <template>
   <l-circle-marker
-          v-if="latLng && visible"
+          v-if="latLng"
           :lat-lng="latLng"
           :radius="markerRadius"
           :color="markerColour"
+          :opacity="markerOpacity"
   >
     <l-popup>
       <DeathPopupContent :death="death" />
@@ -21,13 +22,10 @@ export default {
     death: {
       type: Object,
       default: null
-    }
-  },
-  data() {
-    return {
-      visible: true,
-      markerRadius: 3,
-      markerColour: "#FF0000"
+    },
+    visible: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -38,6 +36,15 @@ export default {
       } else {
         return null
       }
+    },
+    markerColour() {
+      return '#FF0000';
+    },
+    markerOpacity() {
+      return this.visible ? 1.0 : 0.2;
+    },
+    markerRadius() {
+      return this.visible ? 3 : 1;
     }
   },
   components: { DeathPopupContent, LCircleMarker, LPopup }
