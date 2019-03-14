@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="death">
     <span><b>{{ this.personWithAge }}</b></span><br />
     <span class="deathdate">{{ this.deathDate }}</span><br />
     <span class="location">{{ this.death.place }}</span><br />
@@ -18,21 +18,16 @@ export default {
   },
   data() {
     return {
-      personWithAge: `${this.death.person} ${this.death.age}`,
-      date: null
+      personWithAge: `${this.death.person}. Age: ${this.death.age}`
     }
   },
   computed: {
     deathDate() {
       let date = /\d+\/\d+\/\d+/.exec(this.death.date_of_death);
-      if (!date) {
-        date = 'Unknown';
-      }
-      this.date = date;
-      return this.death.date_of_death;
+      return date ? this.death.date_of_death : 'Unknown';
     },
     deathDetail() {
-      if (this.death.detail == 'Unknown') {
+      if (this.death.detail === 'Unknown') {
         return '';
       } else {
         return this.death.detail;
