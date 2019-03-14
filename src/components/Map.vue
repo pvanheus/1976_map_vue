@@ -91,7 +91,7 @@
                     if (this.deaths) {
                         this.map = this.$refs.map.mapObject;
                         this.printButton = L.easyPrint({
-                            sizeModes: ['A4Portrait']
+                            sizeModes: ['A4Landscape', 'A4Portrait']
                         }).addTo(this.map);
                         // this.printButton = L.easyPrint({
                         //   sizeModes: [{
