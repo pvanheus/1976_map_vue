@@ -21,18 +21,7 @@
               />
             </template>
           </l-map>
-          <ag-grid-vue
-            style="height: 500px;"
-            class="ag-theme-balham"
-            :columnDefs="columnDefs"
-						@grid-ready="onGridReady"
-            :rowData="rowData"
-						rowSelection="single"
-						pagination
-						animateRows
-          ></ag-grid-vue>
-					<button @click="getSelectedRows()">Get Selected Rows</button>
-					<br /><br />
+					<p></p>
           <!-- this is a hack - TODO do better margin around map -->
           <!--<p>start: {{ startTimestamp }} end: {{ endTimestamp }}</p>-->
         </div>
@@ -43,7 +32,6 @@
 <script>
 import { LMap, LTileLayer, L } from "vue2-leaflet";
 import axios from "axios";
-import {AgGridVue} from "ag-grid-vue";
 import DeathMarker from "./DeathMarker";
 import "leaflet-easyprint";
 // import BrowserPrint from "./BrowserPrint";
@@ -56,13 +44,6 @@ export default {
   },
   data() {
     return {
-			columnDefs: [
-				{headerName: 'Name', field: 'person', sortable: true, filter: true },
-				{headerName: 'Date of Death', field: 'date_of_death', sortable: true, filter: true },
-				{headerName: 'Place', field: 'place', sortable: true, filter: true },
-				{headerName: 'COD', field: 'detail', sortable: true, filter: true }
-			],
-			rowData: null,
       deaths: null,
       zoom: 10,
       extraOptions: { zoomControl: false },
@@ -76,8 +57,7 @@ export default {
   components: {
     DeathMarker,
     LMap,
-		LTileLayer,
-		AgGridVue
+		LTileLayer
   },
   mounted() {
     let tile_base = "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png";
@@ -93,7 +73,6 @@ export default {
       "https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json";
     axios.get(data_url).then(response => {
 			this.deaths = response.data;
-			this.rowData = response.data;
       this.$nextTick(() => {
         if (this.deaths) {
           this.map = this.$refs.map.mapObject;
@@ -105,15 +84,6 @@ export default {
     });
 	},
   methods: {
-		onGridReady(params) {
-			this.gridApi = params.api;
-			this.columnApi = params.columnApi;
-		},
-		getSelectedRows() {
-				const selectedRow = this.gridApi.getSelectedNodes().map( node => node.data );
-				// const person = selectedData.map( node => node.person + ' ' + node.date_of_death).join(', ');
-				return console.log("selectedRow", selectedRow);
-		},
     isVisible(death) {
       return (
         death.timestamp >= this.startTimestamp &&
