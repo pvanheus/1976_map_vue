@@ -26,6 +26,7 @@
           ></vue-slider>
         </div>
       </div>
+      <Table />
     </div>
     <Footer />
   </div>
@@ -34,6 +35,7 @@
 <script>
   import Header from "./components/Header";
   import Map from "./components/Map";
+  import Table from './components/Table';
   import Footer from "./components/Footer";
   import VueSlider from 'vue-slider-component';
 
@@ -43,7 +45,8 @@
       Header,
       Map,
       Footer,
-      VueSlider
+      VueSlider,
+      Table
     },
     data: () => {
       return {
@@ -110,4 +113,7 @@
   };
 </script>
 
-<style></style>
+<style lang="scss">
+  @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+  @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
+</style>
