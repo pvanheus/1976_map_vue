@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      filterCount: [],
       deaths: null,
       zoom: 10,
       extraOptions: { zoomControl: false },
