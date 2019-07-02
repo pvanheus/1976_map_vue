@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header />
-    <Map v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
+    <Map v-bind:deaths="deaths" v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
     <div class="container">
       <div class="row">
         <div class="col s2">
@@ -37,6 +37,17 @@
   import Footer from "./components/Footer";
   import VueSlider from 'vue-slider-component';
 
+  // var firebaseConfig = {
+  //   apiKey: "AIzaSyAlpAPQbJvjKzTwiafvPSnOSRqixbX8uGc",
+  //   authDomain: "deaths-map-da845.firebaseapp.com",
+  //   databaseURL: "https://deaths-map-da845.firebaseio.com",
+  //   projectId: "deaths-map-da845",
+  //   storageBucket: "deaths-map-da845.appspot.com",
+  //   messagingSenderId: "640782590040",
+  //   appId: "1:640782590040:web:a4813920764e6bf2"
+  // };
+  // // Initialize Firebase
+  // firebase.initializeApp(firebaseConfig);
   export default {
     name: 'MainPage',
     components: {
@@ -47,6 +58,7 @@
     },
     data: () => {
       return {
+        deaths: [],
         dragTogether: false,
         enableCross: false,
         slideDuration: 0.5,

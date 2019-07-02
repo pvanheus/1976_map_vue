@@ -28,6 +28,7 @@
                     <p></p> <!-- this is a hack - TODO do better margin around map -->
                     <!--<p>start: {{ startTimestamp }} end: {{ endTimestamp }}</p>-->
                 </div>
+                <DeathsTable :headers="deathTableHeaders" :deaths="deaths" />
             </div>
         </div>
     </div>
@@ -36,18 +37,21 @@
     import { LMap, LTileLayer, L } from 'vue2-leaflet'
     import axios from 'axios'
     import DeathMarker from './DeathMarker'
+    import DeathsTable from './DeathsTable'
     import 'leaflet-easyprint'
     // import BrowserPrint from "./BrowserPrint";
 
     export default {
         name: 'Map',
         props: {
+            deaths: Array,
             startTimestamp: Number,
             endTimestamp: Number
         },
         data() {
             return {
-                deaths: null,
+                // deaths: null,
+                deathTableHeaders: ['person', 'age', 'date_of_death', 'sex', 'place', 'detail'],
                 zoom: 10,
                 extraOptions: { zoomControl: false },
                 // center: L.latLng(-28.8097176, 24.6074293),
@@ -61,6 +65,7 @@
         },
         components: {
             DeathMarker,
+            DeathsTable,
             LMap,
             LTileLayer
         },
@@ -86,7 +91,7 @@
             });
             let data_url = 'https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json';
             axios.get(data_url).then(response => {
-                this.deaths = response.data;
+                this.deaths.push(...response.data);
                 this.$nextTick( () => {
                     if (this.deaths) {
                         this.map = this.$refs.map.mapObject;
