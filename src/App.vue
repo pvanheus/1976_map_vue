@@ -1,8 +1,12 @@
 <template>
   <div>
     <Nav />
-    <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-      <Header />
+    <div class="uk-container uk-margin-top">
+      <div id="headerWrapper" class="uk-grid-small uk-child-width-expand@s" uk-grid>
+        <Header1 />
+        <Header2 />
+      </div>
+
       <div id="mapWrapper" class="uk-card uk-card-default uk-card-body">
         <br />
         <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
@@ -31,21 +35,16 @@
         <Map v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
       </div>
       <br />
-      <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid id="tableWrapper">
-        <div>
-          <Table :data="deaths" v-if="deaths.length > 0" />
-        </div>
-        <div>
-          <Footer />
-        </div>
-      </div>
+      <Table id="tableWrapper" :data="deaths" v-if="deaths.length > 0" />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
 import Nav from "./components/Nav";
-import Header from "./components/Header";
+import Header1 from "./components/Header1";
+import Header2 from "./components/Header2";
 import Map from "./components/Map";
 import Table from "./components/Table";
 import Footer from "./components/Footer";
@@ -72,7 +71,8 @@ export default {
   name: "MainPage",
   components: {
     Nav,
-    Header,
+    Header1,
+    Header2,
     Map,
     Footer,
     VueSlider,
@@ -180,14 +180,19 @@ export default {
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
 
+#headerWrapper, #tableWrapper {
+  margin: 0 120px;
+}
+
 #mapWrapper {
   padding: 10px;
+  margin: 30px 120px 0 120px;
 }
 .controls {
   background: #fff;
   padding: 50px 10px 10px 10px;
   width: 50%;
-  margin: -20px auto 0 auto;
+  margin: -20px 80px;
   z-index: 9999999;
 
   .options {
@@ -196,7 +201,6 @@ export default {
 }
 
 .slider {
-  background: green;
   margin-right: 20px;
 }
 </style>

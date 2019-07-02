@@ -1,8 +1,8 @@
 <template>
-  <div class="uk-container uk-container-expand" style="background-color: #2191F2; color: #fff;">
+  <div class="uk-container uk-container-expand navWrapper" uk-sticky="bottom: #offset">
     <nav class="uk-navbar">
       <div class="uk-navbar-left">
-        <h3>In memory of 1976</h3>
+        <h2 class="logoh2">1976 Death Map</h2>
       </div>
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav uk-visible@m">
@@ -45,4 +45,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navWrapper {
+  background-color: #2191F2; color: #fff;
+  box-shadow: 0 0 3px 1px #888888;
+}
+
+nav {
+  margin: 0 290px;
+}
+
+.logoh2 {
+  color: #fff;
+}
+.uk-navbar-nav>li.uk-active>a {
+  color: #fff;
+  font-weight: 700;
+}
+</style>

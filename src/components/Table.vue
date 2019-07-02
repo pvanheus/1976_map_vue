@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div> -->
     <ag-grid-vue
       style="height: 500px;"
       class="ag-theme-balham"
@@ -11,7 +11,7 @@
       animateRows
     ></ag-grid-vue>
     <!-- <button @click="getSelectedRows()">Get Selected Rows</button> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
