@@ -3,7 +3,6 @@
     <div class="row">
       <div class="col s8 offset-s2">
         <div id="header">
-          <h4 class="center-align">In memory of 1976</h4>
           <p>
             June 16 1976 marks the start of the 1976 youth uprising against
             Apartheid in South Africa. Most closely associated with the school

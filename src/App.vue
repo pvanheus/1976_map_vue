@@ -1,44 +1,48 @@
 <template>
-  <div class="container">
-    <Header/>
-    <Map
-      v-bind:start-timestamp="startTimeStamp"
-      v-bind:end-timestamp="endTimeStamp"
-    />
-    <div class="container">
-      <div class="row">
-        <div class="col s2">
-          <div class="switch valign-wrapper">
-            <label>
-              Link dates
-              <input v-on:change="toggleDragTogether()" type="checkbox">
-              <span class="lever valign-wrapper"></span>
-            </label>
+  <div class="uk-inline">
+    <div class="uk-overlay uk-light uk-position-bottom">
+      <Nav/>
+      <Header/>
+      <Map
+        v-bind:start-timestamp="startTimeStamp"
+        v-bind:end-timestamp="endTimeStamp"
+      />
+      <div class="container">
+        <div class="row">
+          <div class="col s2">
+            <div class="switch valign-wrapper">
+              <label>
+                Link dates
+                <input v-on:change="toggleDragTogether()" type="checkbox">
+                <span class="lever valign-wrapper"></span>
+              </label>
+            </div>
+          </div>
+          <div class="col s9">
+            <vue-slider
+              ref="slider"
+              v-model="values"
+              :duration="slideDuration"
+              :data="data"
+              :marks="true"
+              :enable-cross="enableCross"
+              @drag-start="oldValues = values"
+              @drag-end="updateEnd(startTimeStamp, endTimeStamp)"
+            ></vue-slider>
           </div>
         </div>
-        <div class="col s9">
-          <vue-slider
-            ref="slider"
-            v-model="values"
-            :duration="slideDuration"
-            :data="data"
-            :marks="true"
-            :enable-cross="enableCross"
-            @drag-start="oldValues = values"
-            @drag-end="updateEnd(startTimeStamp, endTimeStamp)"
-          ></vue-slider>
-        </div>
+        <Table
+          :data="records"
+          v-if="records.length > 0"
+        />
       </div>
-      <Table
-        :data="records"
-        v-if="records.length > 0"
-      />
-      </div>
-    <Footer/>
+      <Footer/>
+    </div>
   </div>
 </template>
 
 <script>
+import Nav from "./components/Nav";
 import Header from "./components/Header";
 import Map from "./components/Map";
 import Table from "./components/Table";
@@ -53,6 +57,7 @@ UIkit.use(Icons);
 export default {
   name: "MainPage",
   components: {
+    Nav,
     Header,
     Map,
     Footer,
