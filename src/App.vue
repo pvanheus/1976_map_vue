@@ -45,6 +45,10 @@ import Table from "./components/Table";
 import Footer from "./components/Footer";
 import VueSlider from "vue-slider-component";
 import axios from "axios";
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+
+UIkit.use(Icons);
 
 export default {
   name: "MainPage",
@@ -152,6 +156,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../node_modules/uikit/dist/css/uikit.min.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
 </style>
