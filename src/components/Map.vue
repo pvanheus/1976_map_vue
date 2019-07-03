@@ -6,7 +6,7 @@
           <l-map
             ref="map"
             id="map"
-            style="height: 400px; width: 100%"
+            style="height: 600px; width: 100%"
             :zoom="zoom"
             :options="extraOptions"
             :center="center"
@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      filterCount: [],
       deaths: null,
       zoom: 10,
       extraOptions: { zoomControl: false },

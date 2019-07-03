@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div> -->
     <ag-grid-vue
       style="height: 500px;"
       class="ag-theme-balham"
@@ -10,16 +10,16 @@
       pagination
       animateRows
     ></ag-grid-vue>
-    <button @click="getSelectedRows()">Get Selected Rows</button>
-  </div>
+    <!-- <button @click="getSelectedRows()">Get Selected Rows</button> -->
+  <!-- </div> -->
 </template>
 
 <script>
-import axios from "axios";
 import { AgGridVue } from "ag-grid-vue";
 
 export default {
   name: "Table",
+  props: ["data"],
   data() {
     return {
 			columnDefs: [
@@ -34,23 +34,19 @@ export default {
   components: {
 		AgGridVue
   },
-  mounted() {
-    let data_url =
-      "https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json";
-    axios.get(data_url).then(response => {
-			this.rowData = response.data;
-    });
+  created() {
+    this.rowData = this.data;
   },
   methods: {
 		onGridReady(params) {
 			this.gridApi = params.api;
 			this.columnApi = params.columnApi;
 		},
-		getSelectedRows() {
-				const selectedRow = this.gridApi.getSelectedNodes().map( node => node.data );
-				// const person = selectedData.map( node => node.person + ' ' + node.date_of_death).join(', ');
-				return console.log("selectedRow", selectedRow);
-		},
+		// getSelectedRows() {
+		// 		const selectedRow = this.gridApi.getSelectedNodes().map( node => node.data );
+		// 		// const person = selectedData.map( node => node.person + ' ' + node.date_of_death).join(', ');
+		// 		return console.log("selectedRow", selectedRow);
+		// },
   }
 }
 </script>
