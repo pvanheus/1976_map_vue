@@ -12,9 +12,6 @@
           <li class="uk-active">
             <a href="#tableWrapper">List</a>
           </li>
-          <li class="uk-active">
-            <a href="#">Documentation</a>
-          </li>
         </ul>
         <a
           uk-navbar-toggle-icon
