@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 .paragraphWrapper {
-  padding: 0px 30px 30px 30px;
+  padding: 0px 30px 30px 5px;
   text-align: justify;
 }
 </style>

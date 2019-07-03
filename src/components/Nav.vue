@@ -7,13 +7,10 @@
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav uk-visible@m">
           <li class="uk-active">
-            <a href="#mapWrapper">Map</a>
+            <a href="#mapWrapper"></a>
           </li>
           <li class="uk-active">
-            <a href="#tableWrapper">List</a>
-          </li>
-          <li class="uk-active">
-            <a href="#">Documentation</a>
+            <a href="#tableWrapper"></a>
           </li>
         </ul>
         <a

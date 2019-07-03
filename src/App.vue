@@ -1,17 +1,35 @@
 <template>
   <div>
     <Nav />
-      <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
-        <Map v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
-        <div class="uk-width-1-4">
-          <Slider @updateEnd="updateEnd" />
-          <Header1 />
+    <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
+      <Map v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
+      <div class="uk-width-1-4">
+        <Slider @updateEnd="updateEnd" />
+        <Header1 />
+      </div>
+    </div>
+    <div id="row2Wrapper" class="uk-grid-small uk-child-width-expand@s" uk-grid>
+      <Table :data="deaths" v-if="deaths.length > 0" />
+      <div>
+        <Header2 />
+        <br />
+        <div class="uk-child-width-expand@s" uk-grid>
+          <div class="uk-grid-item-match">
+            <div class="uk-light uk-background-primary uk-padding">
+              <h4>Want to get involved?</h4>
+              <button class="uk-button uk-button-default">Call to action text</button>
+            </div>
+          </div>
+          <div>
+            <div class="uk-light uk-background-primary uk-padding">
+              <h3>Want to get involved?</h3>
+              <button class="uk-button uk-button-default">Call to action text</button>
+            </div>
+          </div>
         </div>
       </div>
-      <Header2 />
-      <br />
-      <!-- <Table id="tableWrapper" :data="deaths" v-if="deaths.length > 0" /> -->
-      <Footer />
+    </div>
+    <Footer />
   </div>
 </template>
 
@@ -56,7 +74,7 @@ export default {
     return {
       deaths: [],
       startTimeStamp: 202428000.0,
-      endTimeStamp: 226015200.0,
+      endTimeStamp: 226015200.0
     };
   },
   mounted() {
@@ -67,7 +85,7 @@ export default {
     });
   },
   methods: {
-    updateEnd({start, end}) {
+    updateEnd({ start, end }) {
       this.startTimeStamp = start;
       this.endTimeStamp = end;
     }
@@ -80,27 +98,11 @@ export default {
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
 
-#headerWrapper, #tableWrapper {
-  margin: 0 300px;
-}
+#row2Wrapper {
+  margin: auto 20px;
 
-#mapWrapper {
-  padding: 10px;
-  margin: 30px 120px 0 120px;
-}
-.controls {
-  background: #fff;
-  padding: 50px 10px 10px 10px;
-  width: 50%;
-  margin: -20px 80px;
-  z-index: 9999999;
-
-  .options {
-    margin-top: 10px;
+  > div {
+    margin: 20px;
   }
-}
-
-.slider {
-  margin-right: 20px;
 }
 </style>
