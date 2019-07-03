@@ -51,9 +51,9 @@ export default {
   box-shadow: 0 0 3px 1px #888888;
 }
 
-nav {
+/* nav {
   margin: 0 290px;
-}
+} */
 
 .logoh2 {
   color: #fff;
