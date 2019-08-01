@@ -202,5 +202,6 @@ export default {
 
 .slider {
   margin-right: 20px;
+  max-width: 442px;
 }
 </style>
