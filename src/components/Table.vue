@@ -11,6 +11,7 @@
     class="ag-theme-balham"
     :columnDefs="columnDefs"
     @grid-ready="onGridReady"
+    @first-data-rendered="onFirstDataRender"
     :rowData="rowData"
     rowSelection="single"
     pagination
@@ -39,7 +40,7 @@ export default {
           filter: true,
         },
         { headerName: "Place", field: "place", sortable: true, filter: true },
-        { headerName: "COD", field: "detail", sortable: true, filter: true },
+        { headerName: "COD", field: "detail", sortable: true, filter: true, wrapText: true, autoHeight: true },
       ],
       placeFilter: null
     };
@@ -66,6 +67,9 @@ export default {
       this.gridApi = params.api;
       this.columnApi = params.columnApi;
     },
+    onFirstDataRender() {
+      this.columnApi.autoSizeAllColumns();
+    }
     // getSelectedRows() {
     // 		const selectedRow = this.gridApi.getSelectedNodes().map( node => node.data );
     // 		// const person = selectedData.map( node => node.person + ' ' + node.date_of_death).join(', ');
