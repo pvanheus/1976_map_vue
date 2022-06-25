@@ -11,7 +11,7 @@
             :options="extraOptions"
             :center="center"
           >
-            <l-tile-layer v-if="url" :url="url" :attribution="attribution"/>
+            <l-tile-layer v-if="url" :url="url" :attribution="attribution" />
             <template v-if="deaths">
               <DeathMarker
                 :key="death.person"
@@ -21,7 +21,7 @@
               />
             </template>
           </l-map>
-					<p></p>
+          <p></p>
           <!-- this is a hack - TODO do better margin around map -->
           <!--<p>start: {{ startTimestamp }} end: {{ endTimestamp }}</p>-->
         </div>
@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { LMap, LTileLayer, L } from "vue2-leaflet";
+import { LMap, LTileLayer } from "vue2-leaflet";
 import axios from "axios";
 import DeathMarker from "./DeathMarker";
 import "leaflet-easyprint";
@@ -40,58 +40,60 @@ export default {
   name: "Map",
   props: {
     startTimestamp: Number,
-    endTimestamp: Number
+    endTimestamp: Number,
   },
   data() {
     return {
+      deaths: [],
       filterCount: [],
-      deaths: null,
       zoom: 10,
       extraOptions: { zoomControl: false },
       // eslint-disable-next-line
-      center: L.latLng(-33.8881, 18.6726),
+      center: [-33.8881, 18.6726],
+      // center: this.$refs.map.mapObject.latLng(-33.8881, 18.6726),
       url: null,
       attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors & <a href="http://www.thunderforest.com/">Thunderforest</a>'
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors & <a href="http://www.thunderforest.com/">Thunderforest</a>',
     };
   },
   components: {
     DeathMarker,
     LMap,
-		LTileLayer
+    LTileLayer,
   },
   mounted() {
-    let tile_base = "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png";
+    // let tile_base = "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png";
+    let tile_base = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
     this.url = tile_base;
     let site_data_url =
       "https://1976.webbedfeet.co.za/.netlify/functions/site_data";
-    axios.get(site_data_url).then(response => {
-      if ("TF_KEY" in response.data) {
-        this.url = tile_base + "?apikey=" + response.data.TF_KEY;
-      }
-    });
+    // axios.get(site_data_url).then((response) => {
+    //   if ("TF_KEY" in response.data) {
+    //     this.url = tile_base + "?apikey=" + response.data.TF_KEY;
+    //   }
+    // });
     let data_url =
       "https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json";
-    axios.get(data_url).then(response => {
-			this.deaths = response.data;
-      this.$nextTick(() => {
-        if (this.deaths) {
-          this.map = this.$refs.map.mapObject;
-          this.printButton = L.easyPrint({
-            sizeModes: ["A4Landscape", "A4Portrait"]
-          }).addTo(this.map);
-        }
-      });
+    axios.get(data_url).then((response) => {
+      this.deaths = response.data;
+      // this.$nextTick(() => {
+      //   if (this.deaths) {
+      //     this.map = this.$refs.map.mapObject;
+      //     this.printButton = map.easyPrint({
+      //       sizeModes: ["A4Landscape", "A4Portrait"],
+      //     }).addTo(this.map);
+      //   }
+      // });
     });
-	},
+  },
   methods: {
     isVisible(death) {
       return (
         death.timestamp >= this.startTimestamp &&
         death.timestamp <= this.endTimestamp
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

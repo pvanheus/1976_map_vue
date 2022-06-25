@@ -2,17 +2,28 @@
   <div>
     <Nav />
     <div class="uk-container uk-margin-top">
-      <div id="headerWrapper" class="uk-grid-small uk-child-width-expand@s" uk-grid>
+      <div
+        id="headerWrapper"
+        class="uk-grid-small uk-child-width-expand@s"
+        uk-grid
+      >
         <Header1 />
         <Header2 />
       </div>
 
       <div id="mapWrapper" class="uk-card uk-card-default uk-card-body">
         <br />
-        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+        <div
+          class="uk-grid-small uk-child-width-expand@s uk-text-center"
+          uk-grid
+        >
           <div>
             <label>
-              <input class="uk-checkbox" type="checkbox" v-on:change="toggleDragTogether()" />
+              <input
+                class="uk-checkbox"
+                type="checkbox"
+                v-on:change="toggleDragTogether()"
+              />
               Link dates
             </label>
           </div>
@@ -32,10 +43,13 @@
           </div>
         </div>
 
-        <Map v-bind:start-timestamp="startTimeStamp" v-bind:end-timestamp="endTimeStamp" />
+        <Map
+          v-bind:start-timestamp="startTimeStamp"
+          v-bind:end-timestamp="endTimeStamp"
+        />
       </div>
       <br />
-      <Table id="tableWrapper" :data="deaths" v-if="deaths.length > 0" />
+      <Table id="tableWrapper" :data="filteredDeaths" v-if="filteredDeaths.length > 0" />
       <Footer />
     </div>
   </div>
@@ -49,6 +63,7 @@ import Map from "./components/Map";
 import Table from "./components/Table";
 import Footer from "./components/Footer";
 import VueSlider from "vue-slider-component";
+import 'vue-slider-component/theme/default.css'
 import axios from "axios";
 import UIkit from "uikit";
 import Icons from "uikit/dist/js/uikit-icons";
@@ -76,7 +91,7 @@ export default {
     Map,
     Footer,
     VueSlider,
-    Table
+    Table,
   },
   data: () => {
     return {
@@ -84,19 +99,12 @@ export default {
       dragTogether: false,
       enableCross: false,
       slideDuration: 0.5,
+      // values: [0, 10],
       values: ["Jun 76", "Feb 77"],
       oldValues: ["Jun 76", "Feb 77"],
       monthTimestamps: [
-        202428000.0,
-        205020000.0,
-        207698400.0,
-        210376800.0,
-        212968800.0,
-        215647200.0,
-        218239200.0,
-        220917600.0,
-        223596000.0,
-        226015200.0
+        202428000.0, 205020000.0, 207698400.0, 210376800.0, 212968800.0,
+        215647200.0, 218239200.0, 220917600.0, 223596000.0, 226015200.0,
       ],
       data: [
         "Jun 76",
@@ -107,41 +115,41 @@ export default {
         "Nov 76",
         "Dec 76",
         "Jan 77",
-        "Feb 77"
-      ]
+        "Feb 77",
+      ],
     };
   },
   computed: {
-    startTimeStamp: function() {
+    startTimeStamp: function () {
       return this.monthTimestamps[this.data.indexOf(this.values[0])];
     },
-    endTimeStamp: function() {
+    endTimeStamp: function () {
       return this.monthTimestamps[this.data.indexOf(this.values[1]) + 1];
+    },
+    filteredDeaths: function () {
+      let filteredRecords = [];
+      filteredRecords = this.deaths.filter(
+          (i) => i.timestamp === -1 || (i.timestamp >= this.startTimeStamp && i.timestamp <= this.endTimeStamp)
+      );
+      return filteredRecords;
     }
   },
   mounted() {
     let data_url =
       "https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json";
-    axios.get(data_url).then(response => {
+    axios.get(data_url).then((response) => {
       this.deaths = response.data;
     });
   },
   methods: {
-    saveValues: function() {
+    saveValues: function () {
       this.oldValues = this.values;
     },
-    toggleDragTogether: function() {
+    toggleDragTogether: function () {
       this.dragTogether = !this.dragTogether;
       // this.enableCross = !this.enableCross;
     },
     updateEnd(start, end) {
-      let filteredRecords = [];
-      filteredRecords = this.deaths.filter(
-        i => i.timestamp >= start && i.timestamp <= end
-      );
-      this.deaths = filteredRecords;
-      // console.log("aaaaa",start, end, this.deaths);
-
       if (this.dragTogether) {
         let oldDuration = this.duration;
         this.duration = 0.1;
@@ -170,8 +178,8 @@ export default {
         }
         this.duration = oldDuration;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -180,7 +188,8 @@ export default {
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
 
-#headerWrapper, #tableWrapper {
+#headerWrapper,
+#tableWrapper {
   margin: 0 120px;
 }
 

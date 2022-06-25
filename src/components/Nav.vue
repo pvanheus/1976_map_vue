@@ -1,5 +1,8 @@
 <template>
-  <div class="uk-container uk-container-expand navWrapper" uk-sticky="bottom: #offset">
+  <div
+    class="uk-container uk-container-expand navWrapper"
+    uk-sticky="bottom: #offset"
+  >
     <nav class="uk-navbar">
       <div class="uk-navbar-left">
         <h2 class="logoh2">1976 Death Map</h2>
@@ -38,13 +41,14 @@
 
 <script>
 export default {
-  name: "Nav"
+  name: "Nav",
 };
 </script>
 
 <style scoped>
 .navWrapper {
-  background-color: #2191F2; color: #fff;
+  background-color: #2191f2;
+  color: #fff;
   box-shadow: 0 0 3px 1px #888888;
 }
 
@@ -55,7 +59,7 @@ nav {
 .logoh2 {
   color: #fff;
 }
-.uk-navbar-nav>li.uk-active>a {
+.uk-navbar-nav > li.uk-active > a {
   color: #fff;
   font-weight: 700;
 }
