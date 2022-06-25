@@ -1,5 +1,11 @@
 <template>
-  <!-- <div> -->
+   <div>
+  <div class="test-header">
+    <label>
+      Filter by place of death:&nbsp
+    </label>
+    <input type="text" name="filter" v-model="placeFilter" v-on:change="externalFilterChanged()">
+  </div>
   <ag-grid-vue
     style="height: 500px"
     class="ag-theme-balham"
@@ -9,9 +15,11 @@
     rowSelection="single"
     pagination
     animateRows
+    :isExternalFilterPresent="isExternalFilterPresent"
+    :doesExternalFilterPass="doesExternalFilterPass"
   ></ag-grid-vue>
   <!-- <button @click="getSelectedRows()">Get Selected Rows</button> -->
-  <!-- </div> -->
+   </div>
 </template>
 
 <script>
@@ -33,6 +41,7 @@ export default {
         { headerName: "Place", field: "place", sortable: true, filter: true },
         { headerName: "COD", field: "detail", sortable: true, filter: true },
       ],
+      placeFilter: null
     };
   },
   components: {
@@ -41,9 +50,18 @@ export default {
   computed: {
     rowData: function () {
       return this.data;
-    }
+    },
   },
   methods: {
+    externalFilterChanged() {
+      this.gridApi.onFilterChanged();
+    },
+    isExternalFilterPresent() {
+      return this.placeFilter !== null && this.placeFilter.trim() !== "";
+    },
+    doesExternalFilterPass(node) {
+      return node.data.place.search(this.placeFilter) !== -1;
+    },
     onGridReady(params) {
       this.gridApi = params.api;
       this.columnApi = params.columnApi;
