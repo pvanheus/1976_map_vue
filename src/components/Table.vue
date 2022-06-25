@@ -60,7 +60,7 @@ export default {
       return this.placeFilter !== null && this.placeFilter.trim() !== "";
     },
     doesExternalFilterPass(node) {
-      return node.data.place.search(this.placeFilter) !== -1;
+      return node.data.place.toLowerCase().search(this.placeFilter.toLowerCase()) !== -1;
     },
     onGridReady(params) {
       this.gridApi = params.api;
