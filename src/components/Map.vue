@@ -62,16 +62,16 @@ export default {
     LTileLayer,
   },
   mounted() {
-    // let tile_base = "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png";
-    let tile_base = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+    let tile_base = "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png";
+    // let tile_base = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
     this.url = tile_base;
     let site_data_url =
       "https://1976.webbedfeet.co.za/.netlify/functions/site_data";
-    // axios.get(site_data_url).then((response) => {
-    //   if ("TF_KEY" in response.data) {
-    //     this.url = tile_base + "?apikey=" + response.data.TF_KEY;
-    //   }
-    // });
+    axios.get(site_data_url).then((response) => {
+      if ("TF_KEY" in response.data) {
+        this.url = tile_base + "?apikey=" + response.data.TF_KEY;
+      }
+    });
     let data_url =
       "https://raw.githubusercontent.com/pvanheus/1976/master/1976_cape_deaths.json";
     axios.get(data_url).then((response) => {
