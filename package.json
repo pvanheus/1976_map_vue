@@ -21,7 +21,7 @@
     "vue-property-decorator": "^9.1.2",
     "vue-slider-component": "^3.2.14 ",
     "vue2-leaflet": "^2.7.1",
-    "webpack": "^5.73.0"
+    "webpack": "^5.76.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.4",
